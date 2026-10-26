@@ -30,7 +30,7 @@ h1 {
 }
 
 h2 {
-	@apply text-3xl;
+	@apply text-3xl text-primary/90 mt-golden-lg mb-golden-md;
 }
 
 h3 {
