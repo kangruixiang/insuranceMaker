@@ -44,14 +44,14 @@
 
 		<Website bind:selectedWebsite />
 
-		<hr class="text-gray-300 mx-auto mt-golden-lg" />
+		<hr class="text-gray-300 dark:text-gray-600 mx-auto mt-golden-lg" />
 
 		<h2>Select Dates</h2>
 
 		<Calendar bind:dates />
 	</div>
 
-	<div class="border-l border-gray-300 pl-golden-lg col-span-7">
+	<div class="border-l border-gray-300 dark:border-gray-600 pl-golden-lg col-span-7">
 		<h2>Select Modifiers</h2>
 
 		<Modifiers bind:cptCodes />
@@ -65,7 +65,7 @@
 {/if}
 
 <div
-	class="mt-golden-xl pt-golden-md border-t border-gray-300 justify-end text-sm text-right flex gap-x-2"
+	class="mt-golden-xl pt-golden-md border-t border-gray-300 dark:border-gray-600 justify-end text-sm text-right flex gap-x-2"
 >
 	Made by Kang.
 	<a href="mailto:kxiang.wakehealth.edu"><Mail /></a>

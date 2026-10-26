@@ -26,7 +26,7 @@
 			id={cptCode.label}
 			bind:checked={cptCode.checked}
 		/>
-		<label class="label" for={cptCode.label}>{cptCode.label}</label>
+		<label class="label text-base-content" for={cptCode.label}>{cptCode.label}</label>
 
 		{#if cptCode.checked}
 			<div class="flex gap-golden-sm mt-golden-sm justify-center items-center">
