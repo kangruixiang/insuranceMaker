@@ -75,12 +75,10 @@ const fillLine = async (month, day, year, cpt) => {
 
 	// options[9]?.click();
 
-	const modifier = getInput('#procedureCodeModifier1');
-	modifier.value = cpt.modifier;
-
 	setInput('#procedureCode', cpt.label);
 	setInput('#charge', cpt.cost);
 	setInput('#units', cpt.unit);
+	setInput('#procedureCodeModifier1', cpt.modifier);
 
 	for (const [index, pointer] of cpt.pointers.entries()) {
 		const currentInput = '#diagnosisPointer' + (index + 1);
@@ -111,15 +109,13 @@ async function fillDate() {
 
 		if (line == 0 && filter99203[0].checked) {
 			const codes = cptChecked.filter((item) => item.label != 99213);
-			const result = await iterCpt(month, day, year, codes);
-			console.log(line, result);
+			await iterCpt(month, day, year, codes);
 		} else {
 			const codes = cptChecked.filter((item) => item.label != 99203);
-			const result = await iterCpt(month, day, year, codes);
-			console.log(line, result);
+			await iterCpt(month, day, year, codes);
 		}
 	}
-	// alert('Finished filling insurance');
+	alert('Finished filling insurance.');
 }
 
 fillDate();

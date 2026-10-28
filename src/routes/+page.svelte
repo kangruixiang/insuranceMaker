@@ -39,7 +39,7 @@
 </p>
 
 <div class="grid grid-cols-12 gap-golden-md">
-	<div class="col-span-5 mx-golden-md">
+	<div class="md:col-span-5 col-span-12 mx-golden-md">
 		<h2 class="">Select Website</h2>
 
 		<Website bind:selectedWebsite />
@@ -51,7 +51,7 @@
 		<Calendar bind:dates />
 	</div>
 
-	<div class="border-l border-gray-300 dark:border-gray-600 pl-golden-lg col-span-7">
+	<div class="border-l border-gray-300 dark:border-gray-600 pl-golden-lg col-span-12 md:col-span-7">
 		<h2>Select Modifiers</h2>
 
 		<Modifiers bind:cptCodes />
