@@ -10,7 +10,7 @@
 	function callyEvent(node) {
 		const handler = (e) => {
 			const value = e.target.value;
-			dates = value ? value.split(' ') : [];
+			dates = value ? value.split(' ').sort() : [];
 		};
 		node.addEventListener('change', handler);
 		return () => node.removeEventListener('change', handler);
