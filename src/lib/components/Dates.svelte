@@ -30,7 +30,7 @@
 {#each datesObject as dateObject (dateObject)}
 	<div>
 		<h3>{dateObject.date}</h3>
-		<div class="grid md:grid-cols-6 xl:grid-cols-8 grid-cols-3 gap-x-golden-md card card-body">
+		<div class="grid grid-cols-[repeat(6,max-content)] gap-x-golden-md card card-body">
 			{#each cpts as cpt (cpt.label)}
 				{@const checkedDate = dateObject.labels.includes(cpt.label)}
 				<button
@@ -42,7 +42,7 @@
 						}
 					}}
 					class:badge-primary={checkedDate}
-					class="badge">{cpt.label}</button
+					class="badge cursor-pointer">{cpt.label}</button
 				>
 			{/each}
 		</div>

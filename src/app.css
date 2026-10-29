@@ -17,9 +17,9 @@
 	--color-primary: oklch(0.7556 0.0535 192.23);
 }
 
-/* * {
+/** {
 	border: 1px solid black;
-} */
+}*/
 
 @theme {
 	--font-display: 'Jost', 'sans-serif';

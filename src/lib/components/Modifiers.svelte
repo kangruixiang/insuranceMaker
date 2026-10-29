@@ -30,7 +30,9 @@
 			<label class="label text-base-content" for={cptCode.label}>{cptCode.label}</label>
 
 			{#if cptCode.checked}
-				<div class="grid grid-cols-3 gap-golden-sm mt-golden-sm justify-center items-center">
+				<div
+					class="grid grid-cols-3 lg:grid-cols-[repeat(3,max-content)] gap-golden-sm mt-golden-sm items-center"
+				>
 					{@render makeCPTInput('text', 'Modifier', cptCode, 'modifier')}
 					{@render makeCPTInput('number', '$', cptCode, 'cost')}
 					{@render makeCPTInput('number', 'Unit', cptCode, 'unit')}
