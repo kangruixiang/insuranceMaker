@@ -2,9 +2,9 @@
 // eslint-disable-next-line no-undef
 
 // eslint-disable-next-line no-unused-vars
-const { website, dates, diagnosisCode, cpt } = BOOKMARK;
-const filter99203 = cpt.filter((cpt) => cpt.label == 99203); // filters cpt code to only have 99203 for later use
-const cptChecked = cpt.filter((item) => item.checked == true); // filters checked cpt only
+const { website, datesObject, diagnosisCode, cpts } = BOOKMARK;
+const filter99203 = cpts.filter((cpt) => cpt.label == 99203); // filters cpt code to only have 99203 for later use
+const cptChecked = cpts.filter((item) => item.checked == true); // filters checked cpt only
 let line = 0;
 
 // defines shadow dom and selects it
@@ -66,15 +66,6 @@ const fillLine = async (month, day, year, cpt) => {
 	const serviceDate = `${month}/${day}/${year}`;
 	setInput('#startDate', serviceDate);
 	setInput('#endDate', serviceDate);
-
-	// const placeOfService = getInput('[name="placeOfService"]');
-
-	// placeOfService?.click();
-	// const options = getAllInput('#placeOfService_list [role="option"]');
-	// console.log(options);
-
-	// options[9]?.click();
-
 	setInput('#procedureCode', cpt.label);
 	setInput('#charge', cpt.cost);
 	setInput('#units', cpt.unit);
@@ -94,26 +85,18 @@ const fillLine = async (month, day, year, cpt) => {
 //function to iterate each cpt code
 async function iterCpt(month, day, year, cpts) {
 	for (const cpt of cpts) {
-		let result = await fillLine(month, day, year, cpt);
-		console.log(result);
+		await fillLine(month, day, year, cpt);
 	}
-	return new Promise((resolve) => {
-		resolve('Finished iterCpt');
-	});
 }
 
 //Function to iterate each date
 async function fillDate() {
-	for (const date of dates) {
-		const [year, month, day] = date.split('-');
+	for (const dateObject of datesObject) {
+		const [year, month, day] = dateObject.date.split('-');
 
-		if (line == 0 && filter99203[0].checked) {
-			const codes = cptChecked.filter((item) => item.label != 99213);
-			await iterCpt(month, day, year, codes);
-		} else {
-			const codes = cptChecked.filter((item) => item.label != 99203);
-			await iterCpt(month, day, year, codes);
-		}
+		let codes = cpts.filter((cpt) => dateObject.labels.includes(cpt.label));
+
+		await iterCpt(month, day, year, codes);
 	}
 	alert('Finished filling insurance.');
 }

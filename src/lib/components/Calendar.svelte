@@ -1,16 +1,29 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { type CPT, type DateObject } from './modifiers';
 
 	type Props = {
-		dates: string[];
+		datesObject: DateObject[];
+		cptCodes: CPT[];
 	};
 
-	let { dates = $bindable() }: Props = $props();
+	let { datesObject = $bindable(), cptCodes }: Props = $props();
 
 	function callyEvent(node) {
 		const handler = (e) => {
 			const value = e.target.value;
-			dates = value ? value.split(' ').sort() : [];
+
+			// gets selected dates first
+			const selectedDates = value ? value.split(' ').sort() : [];
+
+			const defaultLabels = cptCodes.filter((cpt) => cpt.checked).map((cpt) => cpt.label);
+
+			datesObject = selectedDates.map((date: string) => {
+				// this will preserve existing labels on select
+				const existingDatesObject = datesObject.find((d) => d.date === date);
+
+				return existingDatesObject ?? { date, labels: [...defaultLabels] };
+			});
 		};
 		node.addEventListener('change', handler);
 		return () => node.removeEventListener('change', handler);

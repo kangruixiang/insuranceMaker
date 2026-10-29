@@ -7,6 +7,11 @@ export type CPT = {
 	unit: number;
 };
 
+export type DateObject = {
+	date: string;
+	labels: string[];
+};
+
 export const cpts: CPT[] = [
 	{
 		label: '99203',

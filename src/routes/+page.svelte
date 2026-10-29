@@ -6,19 +6,20 @@
 	import Website from '#lib/components/Website.svelte';
 	import Calendar from '#lib/components/Calendar.svelte';
 	import Modifiers from '#lib/components/Modifiers.svelte';
+	import Dates from '#lib/components/Dates.svelte';
 
-	import { cpts, type CPT } from '#lib/components/modifiers.ts';
+	import { cpts, type CPT, type DateObject } from '#lib/components/modifiers.ts';
 
 	let selectedWebsite = $state<string>('Pick a Location');
-	let dates = $state<string[]>([]);
+	let datesObject = $state<DateObject[]>([]);
 	let cptCodes = $state<CPT[]>(cpts);
 	let selectedDiagnosisCode = $state<string>('Pick Diagnosis Codes');
 
 	let config = $derived({
 		website: selectedWebsite,
-		dates: dates,
+		datesObject: datesObject,
 		diagnosisCode: selectedDiagnosisCode,
-		cpt: cptCodes
+		cpts: cptCodes
 	});
 
 	let bookmarklet = $derived.by(() => {
@@ -38,27 +39,33 @@
 	Use this page to maker insurance bookmarklet for filling insurance forms.
 </p>
 
-<div class="grid grid-cols-12 gap-golden-md">
-	<div class="md:col-span-5 col-span-12 mx-golden-md">
+<div class="flex flex-col gap-golden-md">
+	<div class=" ">
 		<h2 class="">Select Website</h2>
 
 		<Website bind:selectedWebsite />
 
 		<hr class="text-gray-300 dark:text-gray-600 mx-auto mt-golden-lg" />
 
-		<h2>Select Dates</h2>
-
-		<Calendar bind:dates />
-	</div>
-
-	<div class="border-l border-gray-300 dark:border-gray-600 pl-golden-lg col-span-12 md:col-span-7">
 		<h2>Select Modifiers</h2>
 
 		<Modifiers bind:cptCodes />
 	</div>
+
+	<div class="">
+		<h2>Select Dates</h2>
+
+		<Calendar bind:datesObject {cptCodes} />
+	</div>
+
+	<div class="">
+		<h2>Adjust Labels</h2>
+
+		<Dates {datesObject} cpts={cptCodes} />
+	</div>
 </div>
 
-{#if dates.length > 0}
+{#if datesObject.length > 0}
 	<div class="my-golden-2xl text-right">
 		<a class="btn btn-primary" href={bookmarklet}>VA Bookmarklet</a>
 	</div>
