@@ -7,6 +7,7 @@
 	import Calendar from '#lib/components/Calendar.svelte';
 	import Modifiers from '#lib/components/Modifiers.svelte';
 	import Dates from '#lib/components/Dates.svelte';
+	import { parseData } from '#lib/utils.ts';
 
 	import { cpts, type CPT, type DateObject } from '#lib/components/modifiers.ts';
 
@@ -14,6 +15,7 @@
 	let datesObject = $state<DateObject[]>([]);
 	let cptCodes = $state<CPT[]>(cpts);
 	let selectedDiagnosisCode = $state<string>('Pick Diagnosis Codes');
+	let inputText = $state('');
 
 	let config = $derived({
 		website: selectedWebsite,
@@ -40,10 +42,16 @@
 </p>
 
 <div class="flex flex-col gap-golden-md">
-	<div class=" ">
-		<h2 class="">Select Website</h2>
+	<div>
+		<h2>Select Website</h2>
 
 		<Website bind:selectedWebsite />
+
+		<textarea
+			bind:value={inputText}
+			oninput={() => (datesObject = parseData(inputText))}
+			class="textarea w-full textarea-primary mt-golden-lg my-golden-md"
+			placeholder="Paste Grist data"></textarea>
 
 		<hr class="text-gray-300 dark:text-gray-600 mx-auto mt-golden-lg" />
 
@@ -52,13 +60,13 @@
 		<Modifiers bind:cptCodes />
 	</div>
 
-	<div class="">
+	<div>
 		<h2>Select Dates</h2>
 
 		<Calendar bind:datesObject {cptCodes} />
 	</div>
 
-	<div class="">
+	<div>
 		<h2>Adjust Labels</h2>
 
 		<Dates {datesObject} cpts={cptCodes} />

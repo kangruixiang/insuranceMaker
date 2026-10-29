@@ -8,6 +8,7 @@
 	};
 
 	let { datesObject = $bindable(), cptCodes }: Props = $props();
+	let calendarValues = $derived(datesObject.map((d) => d.date).join(' '));
 
 	function callyEvent(node) {
 		const handler = (e) => {
@@ -34,6 +35,6 @@
 	});
 </script>
 
-<calendar-multi {@attach callyEvent} class="cally rounded-md text-lg">
+<calendar-multi value={calendarValues} {@attach callyEvent} class="cally rounded-md text-lg">
 	<calendar-month></calendar-month>
 </calendar-multi>
