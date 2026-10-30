@@ -16,6 +16,9 @@
 	let cptCodes = $state<CPT[]>(cpts);
 	let selectedDiagnosisCode = $state<string>('Pick Diagnosis Codes');
 	let inputText = $state('');
+	let totalLines = $derived(
+		datesObject.reduce((total, dateObject) => total + dateObject.labels.length, 0)
+	);
 
 	let config = $derived({
 		website: selectedWebsite,
@@ -66,11 +69,17 @@
 		<Calendar bind:datesObject {cptCodes} />
 	</div>
 
-	<div>
-		<h2>Adjust Labels</h2>
+	{#if datesObject.length > 0}
+		<div>
+			<h2>Adjust Labels</h2>
 
-		<Dates {datesObject} cpts={cptCodes} />
-	</div>
+			<Dates {datesObject} cpts={cptCodes} />
+		</div>
+
+		<h3 class="text-right">
+			Total Lines: <span class:text-red-500={totalLines > 50}>{totalLines}</span> / 50
+		</h3>
+	{/if}
 </div>
 
 {#if datesObject.length > 0}
