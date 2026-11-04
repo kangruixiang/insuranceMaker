@@ -93,7 +93,7 @@ async function iterCpt(month, day, year, cpts) {
 async function fillDate() {
 	for (const dateObject of datesObject) {
 		const [date, time] = dateObject.date.split(' ')
-		const [year, month, day] = date
+		const [year, month, day] = date.split('-')
 
 		let codes = cpts.filter((cpt) => dateObject.labels.includes(cpt.label));
 
